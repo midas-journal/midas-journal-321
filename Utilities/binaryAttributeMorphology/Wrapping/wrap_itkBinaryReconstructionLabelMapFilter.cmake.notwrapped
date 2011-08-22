@@ -1,0 +1,7 @@
+WRAP_CLASS("itk::ReconstructionLabelMapFilter" POINTER)
+  FOREACH(d ${WRAP_ITK_DIMS})
+    FOREACH(t2 ${WRAP_ITK_USIGN_INT})
+      WRAP_TEMPLATE("${ITKM_LM${d}}${ITKM_I${t2}${d}}" "${ITKT_LM${d}}, ${ITKT_I${t2}${d}}")
+    ENDFOREACH(t2)
+  ENDFOREACH(d)
+END_WRAP_CLASS()

@@ -1,0 +1,3 @@
+IF( TEST_LABEL_FRAMEWORK )   
+  SUBDIRS( binaryAttributeMorphology )
+ENDIF( TEST_LABEL_FRAMEWORK )

@@ -1,0 +1,10 @@
+WRAP_CLASS("itk::BinaryImageToStatisticsLabelMapFilter" POINTER)
+  FOREACH(t ${WRAP_ITK_USIGN_INT})
+    FOREACH(t2 ${WRAP_ITK_SCALAR})
+      FOREACH(d ${WRAP_ITK_DIMS})
+        # image -> label collection image
+        WRAP_TEMPLATE("${ITKM_I${t}${d}}${ITKM_I${t2}${d}}${ITKM_LM${d}}" "${ITKT_I${t}${d}}, ${ITKT_I${t2}${d}}, ${ITKT_LM${d}}")
+      ENDFOREACH(d)
+    ENDFOREACH(t2)
+  ENDFOREACH(t)
+END_WRAP_CLASS()

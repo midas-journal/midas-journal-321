@@ -1,0 +1,110 @@
+#Common Parameters
+
+# Radius of the largest cell - This is used the set the region of interest around each cell for locally processing it. Given that the radius of a cell is an invariant to the imaging protocol, it is best to define ROI limits from the image spacing information. This information is also important in determining the kernel widths of smoothing filters. Instead of hard-coding the sigma/variances, it may be best to define their widths in real coordinates (for example, sigma = radius/10 etc) and then use image spacing to assign the values in terms of image pixels. Also, the cell radius helps in eliminating components with a smaller radius, especially during seed-point detection.
+LargestCellRadius       = 4.0
+
+#-------------------------------------------------
+#CellForegroundExtraction Parameters
+#-------------------------------------------------
+
+#LargestCellRadius is used in this module
+
+
+# sampling rate = ( samplingForegroundX, samplingForegroundY, samplingForegroundZ)
+# used to downsample the image because the foreground extraction doesn't need
+# high resolution. The sampling rate appears in later filters also for the same purpose. High-resolution is not required to generate quick results.
+samplingForegroundX     = 4
+samplingForegroundY     = 2
+samplingForegroundZ     = 2
+
+
+# This bool variable determines if the Gaussian template matching output is required or not.
+FormFit                 = TRUE
+
+
+# This is kernel-width of the spherical Gaussian filter. It is roughly set to match half the cell radius. Future code will not contain this parameter. The Gaussian matching code needs to automatically consider all Gaussian kernels of a given volume range.
+SigmaForm               = 2.0
+
+
+# Gray scale threshold for the nuclei channel
+ThresholdCell           = 30
+
+
+# Gray scale threshold for the memberane channel
+ThresholdMembrane       = 0
+
+
+# The Gaussian template matching map is also thresholded to give an estimate of the foreground.
+ThresholdForm           = 0.15
+
+
+#-------------------------------------------------
+#CellFeatureGenerator Parameters
+#-------------------------------------------------
+
+
+#LargestCellRadius used here
+
+
+# As explained earlier in LargestCellRadius, this parameter is about LargestCellRadius/20 . It will get automatically set in future code. It is the kernel width of a smoothing gaussian prior to computation of gradients. It operates on the cell input image channel.
+SigmaCell               = 0.2
+
+
+# Same as above except that this Gaussian kernel operates on the template matching output.
+SigmaCorrelation        = 0.2
+
+
+# Not sure what this is. Will look it up.
+SamplingFeature         = 1
+
+
+# Weight given to the distance map.
+DistanceMapWeight       = 1
+
+
+# Weight given to gradient magnitude
+GradientMagnitudeWeight = 0
+
+
+#-------------------------------------------------
+#SeedExtraction Parameters
+#-------------------------------------------------
+
+
+# Actually, this is a lower-bound on the radius values. In elliptic nuclei, we want the minor axis (b) measurement here. The main purpose is to eliminate spurious seed points. Note the value of the distance map at the center of a nuclei is equal roughly to the minor axis radius. So, the input should be (b-epsilon). epsilon is some small quantity. I have put a very large epsilon. But this parameter needs to be ideally 2.0 micrometer.
+AverageRadius           = 0.5
+
+
+#-------------------------------------------------
+#LevelSetBasedCellSegmentation  Parameters
+#-------------------------------------------------
+
+#LargestCellRadius used here
+
+# Each level-set is initialized from a seed-point. A distance map is constructed and the seed value is subtracted from it. The zero level-set is the starting contour.
+SeedValue               = 2.0
+
+# Maximum iterations allowed for level-set growth 
+Iterations              = 500 
+
+# Weights assigned to the propagation, curvature and advection terms in Leventon's formulation.
+PropagationScaling      = 3
+
+CurvatureScaling        = 1 
+
+AdvectionScaling        = 3 
+
+# Change in the level-set function between consecutive iterations.
+MaxRMSChange            = 0.001
+
+#-------------------------------------------------
+#LevelSetBasedCellSegmentation With Shape Parameters
+#-------------------------------------------------
+
+
+# Number of principal components used for the PCA shape
+NPCAModes = 2
+
+# This weights the level-set evolution with the shape prior term. It is a multiplicative factor. Refer to Leventon's formulation.
+ShapePriorScaling = 2.0
+

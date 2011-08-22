@@ -1,0 +1,9 @@
+- implement more specializations of BinaryAttributeOpeningImageFilter
+- implement more specializations of LabelAttributeOpeningImageFilter
+- implement more specializations of AttributeRelabelImageFilter
+- implement more specializations of BinaryAttributeKeepNObjectsImageFilter
+- implement more specializations of LabelAttributeKeepNObjectsImageFilter
+- implement more shape descriptors
+- implement some statistic descriptors
+- reimplement LabelShapeImageFilter (http://voxel.jouy.inra.fr/darcsweb/darcsweb.cgi?r=labelShape;a=summary) with the new classes
+- perhaps, reimplement LabelStatisticsImageFilter with the new classes
